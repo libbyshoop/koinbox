@@ -6,14 +6,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:id="@+id/userprofile_layout">
+    android:id="@+id/otheruserprofile_layout">
     <TableRow>
         <TextView
         android:text="@string/name_text" 
         />
         
 	    <TextView
-        android:id="@+id/name" 
+        android:id="@+id/otheruser_name" 
         />
 	</TableRow>
 	
@@ -22,7 +22,7 @@
         android:text="@string/age_text" />
 
         <TextView
-        android:id="@+id/age"
+        android:id="@+id/otheruser_age"
         />
 	    
 	</TableRow>
@@ -32,7 +32,7 @@
         android:text="@string/university_text" />
 
         <TextView
-        android:id="@+id/university"/>
+        android:id="@+id/otheruser_university"/>
 	    
 	</TableRow>
 	
@@ -42,7 +42,7 @@
         android:layout_marginRight="7dp"/>
 
         <TextView
-        android:id="@+id/home_city"/>
+        android:id="@+id/otheruser_home_city"/>
 	    
 	</TableRow>
 	
@@ -51,17 +51,7 @@
         android:text="@string/away" />
 
         <TextView
-        android:id="@+id/away_city"/>
-	    
-	</TableRow>
-	<TableRow>
-        <TextView
-        android:text="[Edit Profile]"
-        android:id="@+id/edit_profile"
-        android:layout_marginBottom="15dp"
-        android:onClick="onClick"                
-        android:clickable="true"
-        />
+        android:id="@+id/otheruser_away_city"/>
 	    
 	</TableRow>
 	
@@ -69,7 +59,7 @@
 
 
         <TextView
-        android:text="My Interests:"
+        android:id="@+id/other_user"
         android:layout_marginBottom="5dp"/>
 	    
 	</TableRow>

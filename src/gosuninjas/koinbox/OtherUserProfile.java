@@ -1,5 +1,7 @@
 package gosuninjas.koinbox;
 
+import gosuninjas.koinbox.UserProfile.Read;
+
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -36,49 +38,44 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UserProfile extends Activity implements OnClickListener{
+public class OtherUserProfile extends Activity{
 	
 	TextView name,age,university,home,away;
-	Button myinterest,mykoinbox,logout;
 	HttpClient client;
 	JSONObject json;
 	JSONArray jsonarray;
-	public static String myname,myuniversity,myhome,myaway,myuri,myuserid;
-	public static int myage;
+	public static String other_username;
+	public static String userid;
 	
-	final static String URL_pre = "http://10.0.2.2:8000/api/v1/userprofile/?format=json";
-	final static String URL_pre1 = "http://10.0.2.2:8000/api/v1/interest/?format=json";
+	final static String URL_pre = "http://10.0.2.2:8000/api/v1/otheruserprofile/?format=json&user=";
+	final static String URL_pre1 = "http://10.0.2.2:8000/api/v1/otheruserinterest/?format=json&user=";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.userprofile);
-	TextView edit_profile = (TextView) findViewById(R.id.edit_profile);
-	edit_profile.setOnClickListener(this);
-	name = (TextView) findViewById(R.id.name);
-	age = (TextView) findViewById(R.id.age);
-	university = (TextView) findViewById(R.id.university);
-	home = (TextView) findViewById(R.id.home_city);
-	away = (TextView) findViewById(R.id.away_city);
+	setContentView(R.layout.otheruser_profile);
+	name = (TextView) findViewById(R.id.otheruser_name);
+	age = (TextView) findViewById(R.id.otheruser_age);
+	university = (TextView) findViewById(R.id.otheruser_university);
+	home = (TextView) findViewById(R.id.otheruser_home_city);
+	away = (TextView) findViewById(R.id.otheruser_away_city);
 	client = new DefaultHttpClient();
 	new Read().execute("name");
 	}
 	
-	public void onClick(View v){
-		switch (v.getId()){
-		case R.id.edit_profile:
-			Intent i = new Intent(this, EditProfile.class);
-			startActivity(i);
-			break;
-		}
-	}
 	
-	public JSONObject userprofile(String username, String password) throws ClientProtocolException, IOException, JSONException{
-		StringBuilder url = new StringBuilder(URL_pre);
-		UsernamePasswordCredentials creds = new UsernamePasswordCredentials(username,password);    
+	public JSONObject otheruserprofile(String username) throws ClientProtocolException, IOException, JSONException{
+		HttpGet get1 = new HttpGet("http://10.0.2.2:8000/api/v1/user/?format=json&username="+username);
+		HttpResponse r1 = client.execute(get1);
+		HttpEntity e1 = r1.getEntity();
+		String data1 = EntityUtils.toString(e1);
+		JSONObject input1 = new JSONObject(data1);
+		JSONArray user_stream = input1.getJSONArray("objects");
+		JSONObject user = user_stream.getJSONObject(0);
+		userid = user.getString("resource_uri").substring(13).replace("/", "");
 		
-		HttpGet get = new HttpGet(url.toString());
-		get.addHeader(BasicScheme.authenticate(creds, "UTF-8", false));
+		StringBuilder url = new StringBuilder(URL_pre);
+		HttpGet get = new HttpGet(url.toString()+userid);
 		HttpResponse r = client.execute(get);
 		int status = r.getStatusLine().getStatusCode();
 		
@@ -90,17 +87,14 @@ public class UserProfile extends Activity implements OnClickListener{
 			JSONObject profile = profile_stream.getJSONObject(0);
 			return profile;
 		}else{
-			Toast.makeText(UserProfile.this, "error", Toast.LENGTH_SHORT).show();
+			Toast.makeText(OtherUserProfile.this, "error", Toast.LENGTH_SHORT).show();
 			return null;
 		}
 	}
 	
-	public JSONArray userinterest(String username, String password) throws ClientProtocolException, IOException, JSONException{
-		StringBuilder url = new StringBuilder(URL_pre1);
-		UsernamePasswordCredentials creds = new UsernamePasswordCredentials(username,password);    
-		
-		HttpGet get = new HttpGet(url.toString());
-		get.addHeader(BasicScheme.authenticate(creds, "UTF-8", false));
+	public JSONArray otheruserinterest(String username) throws ClientProtocolException, IOException, JSONException{
+		StringBuilder url = new StringBuilder(URL_pre1);  
+		HttpGet get = new HttpGet(url.toString()+"1");
 		HttpResponse r = client.execute(get);
 		int status = r.getStatusLine().getStatusCode();
 		
@@ -111,7 +105,7 @@ public class UserProfile extends Activity implements OnClickListener{
 			JSONArray interest_stream = input.getJSONArray("objects");
 			return interest_stream;
 		}else{
-			Toast.makeText(UserProfile.this, "error", Toast.LENGTH_SHORT).show();
+			Toast.makeText(OtherUserProfile.this, "error", Toast.LENGTH_SHORT).show();
 			return null;
 		}
 	}
@@ -120,16 +114,14 @@ public class UserProfile extends Activity implements OnClickListener{
 		@Override
 		protected String[] doInBackground(String... params) {
 			try {
-				json = userprofile(Koinbox.username, Koinbox.password);
-				jsonarray = userinterest(Koinbox.username, Koinbox.password);
+				json = otheruserprofile(other_username);
+				jsonarray = otheruserinterest(other_username);
 				String[] result_array = new String[jsonarray.length()*2+5];
 				result_array[0]=json.getString("name");
 				result_array[1]=json.getString("age");
 				result_array[2]=json.getString("university");
 				result_array[3]=json.getString("home_city");
 				result_array[4]=json.getString("away_city");
-				myuserid = json.getString("user");
-				myuri = json.getString("resource_uri");
 				int j = 5;
 				for (int i=0;i<jsonarray.length();i++){
 					result_array[j]=jsonarray.getJSONObject(i).getString("type_interest");
@@ -156,21 +148,16 @@ public class UserProfile extends Activity implements OnClickListener{
 		
 		@Override
 		protected void onPostExecute(String[] result){
-			myname = result[0];
-			myage = Integer.parseInt(result[1]);
-			myuniversity = result[2];
-			myhome = result[3];
-			myaway = result[4];
 			name.setText(result[0]);
 			age.setText(result[1]);
 			university.setText(result[2]);
 			home.setText(result[3]);
 			away.setText(result[4]);
-			final TableLayout layout = (TableLayout) findViewById(R.id.userprofile_layout);
+			final TableLayout layout = (TableLayout) findViewById(R.id.otheruserprofile_layout);
 			TextView[] tx = new TextView[jsonarray.length()];
 			int j = 5;
 			for (int i=0;i<tx.length;i++){
-				tx[i]=new TextView(UserProfile.this);
+				tx[i]=new TextView(OtherUserProfile.this);
 				tx[i].setText("("+result[j]+") "+result[j+1]);
 				layout.addView(tx[i]);
 				j=j+2;

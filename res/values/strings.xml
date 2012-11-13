@@ -10,5 +10,8 @@
     <string name="away">Destination City: </string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_koinbox">Koinbox</string>
+    <string name="password_again_text">Password (Again): </string>
+    <string name="email">Email: </string>
+    
 
 </resources>

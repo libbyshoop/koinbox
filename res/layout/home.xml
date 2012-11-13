@@ -1,0 +1,31 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <Button
+        android:id="@+id/my_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Profile" />
+    <Button
+        android:id="@+id/my_koinbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Koinbox" />
+    <Button
+        android:id="@+id/my_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Friends" />
+    <Button
+        android:id="@+id/about_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Us" />
+    <Button
+        android:id="@+id/log_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+    
+</TableLayout>

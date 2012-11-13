@@ -21,6 +21,13 @@
             </intent-filter>
         </activity>
     	<activity android:name=".UserProfile"></activity>
+    	<activity android:name=".Register"></activity>
+    	<activity android:name=".Home"></activity>
+    	<activity android:name=".MyKoinbox"></activity>
+    	<activity android:name=".MyFriends"></activity>
+    	<activity android:name=".OtherUserProfile"></activity>
+    	<activity android:name=".EditProfile"></activity>
+    	<activity android:name=".EditInterest"></activity>
     </application>
 
 </manifest>

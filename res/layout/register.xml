@@ -1,0 +1,138 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <TableRow>
+        <TextView
+        android:text="@string/username" />
+        
+	    <EditText
+	    android:id="@+id/register_username"
+	    android:ems="10"
+	    android:inputType="text">
+		</EditText>
+	</TableRow>
+	
+    <TableRow>
+        <TextView
+        android:text="@string/email" />
+
+	    <EditText
+	        android:id="@+id/register_email"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="text" />
+
+	</TableRow>
+    
+    <TableRow>
+        <TextView
+        android:text="@string/password" />
+
+	    <EditText
+	        android:id="@+id/register_password"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="textPassword" />
+
+	</TableRow>
+    
+    <TableRow>
+        <TextView
+        android:text="@string/password_again_text" />
+
+	    <EditText
+	        android:id="@+id/register_password_again"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="textPassword" />
+
+	</TableRow>
+	
+    <TableRow>
+        <TextView
+        android:text="@string/name_text" />
+
+	    <EditText
+	        android:id="@+id/name_input"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="text" />
+
+	</TableRow>
+	
+    <TableRow>
+        <TextView
+        android:text="@string/age_text" />
+
+	    <EditText
+	        android:id="@+id/age_input"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="number" />
+
+	</TableRow>
+	
+    <TableRow>
+        <TextView
+        android:text="@string/university_text" />
+
+	    <EditText
+	        android:id="@+id/university_input"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="text" />
+
+	</TableRow>
+	
+    <TableRow>
+        <TextView
+        android:text="@string/home" />
+
+	    <EditText
+	        android:id="@+id/home_input"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="text" />
+
+	</TableRow>
+	
+    <TableRow>
+        <TextView
+        android:text="@string/away" />
+
+	    <EditText
+	        android:id="@+id/away_input"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="text" />
+
+	</TableRow>
+    
+    
+    <Button
+        android:id="@+id/register_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+
+</TableLayout>
+</ScrollView>

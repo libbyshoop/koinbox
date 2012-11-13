@@ -18,6 +18,8 @@ public class Koinbox extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         View login = findViewById(R.id.login);
+        View register = findViewById(R.id.register);
+        register.setOnClickListener(this);
         login.setOnClickListener(this);
         username_box = (EditText) findViewById(R.id.username);
         
@@ -28,13 +30,18 @@ public class Koinbox extends Activity implements OnClickListener {
     public void onClick(View v){
     	switch (v.getId()){
     	case R.id.login:
-    		Intent i =new Intent(this, UserProfile.class);
+    		Intent i =new Intent(this, Home.class);
     		username = username_box.getText().toString();
     		password = password_box.getText().toString();
-    		if (username!="" && password!=""){
+    		if (!username.equals("") && !password.equals("")){
     			startActivity(i);
     			break;
-    	}
+    		}
+    		break;
+    	case R.id.register:
+    		i = new Intent(this,Register.class);
+    		startActivity(i);
+    		break;
     }
     }
 
