@@ -1,8 +1,10 @@
 package gosuninjas.koinbox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,8 +45,9 @@ public class UserProfile extends Activity implements OnClickListener{
 	HttpClient client;
 	JSONObject json;
 	JSONArray jsonarray;
-	public static String myname,myuniversity,myhome,myaway,myuri,myuserid;
+	public static String myname,myuniversity,myhome,myaway,myuri,myuserid,interestpoint,type,description;
 	public static int myage;
+
 	
 	final static String URL_pre = "http://10.0.2.2:8000/api/v1/userprofile/?format=json";
 	final static String URL_pre1 = "http://10.0.2.2:8000/api/v1/interest/?format=json";
@@ -55,6 +58,8 @@ public class UserProfile extends Activity implements OnClickListener{
 	setContentView(R.layout.userprofile);
 	TextView edit_profile = (TextView) findViewById(R.id.edit_profile);
 	edit_profile.setOnClickListener(this);
+	TextView add_interest = (TextView) findViewById(R.id.add_interest);
+	add_interest.setOnClickListener(this);
 	name = (TextView) findViewById(R.id.name);
 	age = (TextView) findViewById(R.id.age);
 	university = (TextView) findViewById(R.id.university);
@@ -68,6 +73,10 @@ public class UserProfile extends Activity implements OnClickListener{
 		switch (v.getId()){
 		case R.id.edit_profile:
 			Intent i = new Intent(this, EditProfile.class);
+			startActivity(i);
+			break;
+		case R.id.add_interest:
+			i = new Intent(this, AddInterest.class);
 			startActivity(i);
 			break;
 		}
@@ -115,14 +124,14 @@ public class UserProfile extends Activity implements OnClickListener{
 			return null;
 		}
 	}
-	
+
 	public class Read extends AsyncTask<String, Integer, String[]>{
 		@Override
 		protected String[] doInBackground(String... params) {
 			try {
 				json = userprofile(Koinbox.username, Koinbox.password);
 				jsonarray = userinterest(Koinbox.username, Koinbox.password);
-				String[] result_array = new String[jsonarray.length()*2+5];
+				String[] result_array = new String[jsonarray.length()*3+5];
 				result_array[0]=json.getString("name");
 				result_array[1]=json.getString("age");
 				result_array[2]=json.getString("university");
@@ -134,7 +143,8 @@ public class UserProfile extends Activity implements OnClickListener{
 				for (int i=0;i<jsonarray.length();i++){
 					result_array[j]=jsonarray.getJSONObject(i).getString("type_interest");
 					result_array[j+1]=jsonarray.getJSONObject(i).getString("description");
-					j=j+2;
+					result_array[j+2]=jsonarray.getJSONObject(i).getString("resource_uri").substring(17).replace("/", "");
+					j=j+3;
 				}
 				
 				return result_array;
@@ -171,9 +181,21 @@ public class UserProfile extends Activity implements OnClickListener{
 			int j = 5;
 			for (int i=0;i<tx.length;i++){
 				tx[i]=new TextView(UserProfile.this);
-				tx[i].setText("("+result[j]+") "+result[j+1]);
+				tx[i].setText("("+result[j]+") "+result[j+1]+"       [EDIT]");
+				final String l = result[j];
+				final String m = result[j+1];
+				final String k = result[j+2];
+				tx[i].setOnClickListener(new TextView.OnClickListener() {  
+					   public void onClick(View v) {
+						   type = l;
+						   description = m;
+						   interestpoint=k;
+						   Intent i = new Intent(UserProfile.this, EditInterest.class);
+						   startActivity(i);
+					   }
+					   });
 				layout.addView(tx[i]);
-				j=j+2;
+				j=j+3;
 			}
 		}
 		

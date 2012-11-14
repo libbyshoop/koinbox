@@ -3,6 +3,7 @@ package gosuninjas.koinbox;
 import gosuninjas.koinbox.UserProfile.Read;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
@@ -11,14 +12,19 @@ import java.util.Set;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,9 +66,82 @@ public class OtherUserProfile extends Activity{
 	home = (TextView) findViewById(R.id.otheruser_home_city);
 	away = (TextView) findViewById(R.id.otheruser_away_city);
 	client = new DefaultHttpClient();
+	
+	final TableLayout layout = (TableLayout) findViewById(R.id.otheruserprofile_layout);
+	
+	
 	new Read().execute("name");
+	TextView[] tx = new TextView[2];
+	if (!Home.myfriends.contains(other_username)){
+		tx[0]=new TextView(OtherUserProfile.this);
+		tx[0].setText("[Add to your friend list]");
+		tx[0].setOnClickListener(new TextView.OnClickListener() {  
+			   public void onClick(View v) {
+				   try {
+						addFriend();
+					} catch (ClientProtocolException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Intent i = new Intent(OtherUserProfile.this,Home.class);
+					startActivity(i);
+			   }
+			   });
+		layout.addView(tx[0]);
+	}
+	else {
+		tx[1]=new TextView(OtherUserProfile.this);
+		tx[1].setText("[Delete from your friend list]");
+		tx[1].setOnClickListener(new TextView.OnClickListener() {  
+			   public void onClick(View v) {
+				   try {
+						deleteFriend();
+					} catch (ClientProtocolException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Intent i = new Intent(OtherUserProfile.this,Home.class);
+					startActivity(i);
+			   }
+			   });
+		layout.addView(tx[1]);
+	}
 	}
 	
+	
+	public void addFriend() throws ClientProtocolException, IOException{
+		final HttpPost httppost = new HttpPost("http://10.0.2.2:8000/login_page/"); 
+
+	    ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	    postParameters.add(new BasicNameValuePair("username", Koinbox.username));
+	    postParameters.add(new BasicNameValuePair("password", Koinbox.password));
+	    httppost.setEntity(new UrlEncodedFormEntity(postParameters));
+	    HttpResponse response = client.execute(httppost);
+	    
+	    HttpGet get1 = new HttpGet("http://10.0.2.2:8000/friend/add/?username="+other_username);
+        HttpResponse r1 = client.execute(get1);
+        
+	}
+	
+	public void deleteFriend() throws ClientProtocolException, IOException{
+		final HttpPost httppost = new HttpPost("http://10.0.2.2:8000/login_page/"); 
+
+	    ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	    postParameters.add(new BasicNameValuePair("username", Koinbox.username));
+	    postParameters.add(new BasicNameValuePair("password", Koinbox.password));
+	    httppost.setEntity(new UrlEncodedFormEntity(postParameters));
+	    HttpResponse response = client.execute(httppost);
+	    
+	    HttpGet get = new HttpGet("http://10.0.2.2:8000/friend/delete/?username="+other_username);
+        HttpResponse r1 = client.execute(get);
+        
+	}
 	
 	public JSONObject otheruserprofile(String username) throws ClientProtocolException, IOException, JSONException{
 		HttpGet get1 = new HttpGet("http://10.0.2.2:8000/api/v1/user/?format=json&username="+username);
@@ -94,7 +173,7 @@ public class OtherUserProfile extends Activity{
 	
 	public JSONArray otheruserinterest(String username) throws ClientProtocolException, IOException, JSONException{
 		StringBuilder url = new StringBuilder(URL_pre1);  
-		HttpGet get = new HttpGet(url.toString()+"1");
+		HttpGet get = new HttpGet(url.toString()+userid);
 		HttpResponse r = client.execute(get);
 		int status = r.getStatusLine().getStatusCode();
 		

@@ -6,7 +6,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -19,35 +19,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
 
-public class EditInterest extends Activity implements OnClickListener,OnItemSelectedListener {
-	Button save,delete_button;
+public class AddInterest extends Activity implements OnClickListener,OnItemSelectedListener {
+	Button save;
 	EditText editdescription;
 	String[] items = {"Music","Sports","Movie","Game"};
 	String type,description;
 	@Override
 	 public void onCreate(Bundle savedInstanceState) {
 		 super.onCreate(savedInstanceState);
-	     setContentView(R.layout.editinterest);
-	     save = (Button) findViewById(R.id.submit_edit_interest);
-	     delete_button = (Button) findViewById(R.id.delete_interest);
+	     setContentView(R.layout.addinterest);
+	     save = (Button) findViewById(R.id.submit_add_interest);
 	     save.setOnClickListener(this);
-	     delete_button.setOnClickListener(this);
-	     editdescription = (EditText) findViewById(R.id.edit_interest);
-	     Spinner my_spin=(Spinner)findViewById(R.id.type_spinner);
+	     editdescription = (EditText) findViewById(R.id.add_interest);
+	     Spinner my_spin=(Spinner)findViewById(R.id.add_type_spinner);
 	     my_spin.setOnItemSelectedListener(this);
-	     editdescription.setText(UserProfile.description);
 	     ArrayAdapter aa=new ArrayAdapter(this, android.R.layout.simple_spinner_item,items);
 	     aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	     my_spin.setAdapter(aa);
-	     my_spin.setSelection(aa.getPosition(UserProfile.type));
 	}
-	
 	public void onItemSelected(AdapterView arg0, View arg1, int pos, long arg3) {
 		type=items[pos];		
 	}
@@ -60,11 +55,10 @@ public class EditInterest extends Activity implements OnClickListener,OnItemSele
 	
 	public void onClick(View v){
 		switch (v.getId()){
-		case R.id.submit_edit_interest:
-			
-			description=editdescription.getText().toString();
+		case R.id.submit_add_interest:
+			description = editdescription.getText().toString();
 			try {
-				editInterest(type,description);
+				addInterest(type,description);
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -78,60 +72,27 @@ public class EditInterest extends Activity implements OnClickListener,OnItemSele
 			Intent i = new Intent(this, UserProfile.class);
 			startActivity(i);
 			break;
-		case R.id.delete_interest:
-			try {
-				deleteInterest();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			i = new Intent(this, UserProfile.class);
-			startActivity(i);
-			break;
 		}
 	}
 	
-	public void editInterest(String type, String description) throws JSONException, ClientProtocolException, IOException{
+	public void addInterest(String type, String description) throws JSONException, ClientProtocolException, IOException{
 		HttpClient client = new DefaultHttpClient();  
-	    HttpPut put = new HttpPut("http://10.0.2.2:8000/api/v1/createinterest/"+UserProfile.interestpoint+"/");
-	    put.setHeader("Content-type", "application/json");
-	    put.setHeader("Accept", "application/json");
+	    HttpPost post = new HttpPost("http://10.0.2.2:8000/api/v1/createinterest/");
+	    post.setHeader("Content-type", "application/json");
+	    post.setHeader("Accept", "application/json");
 	    JSONObject obj = new JSONObject();
 	    obj.put("type_interest", type);
 	    obj.put("description", description);
 	    obj.put("user", UserProfile.myuserid);
 	   
 	    try {
-			put.setEntity(new StringEntity(obj.toString(), "UTF-8"));
+			post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	    try {
-			HttpResponse response = client.execute(put);
-		} catch (ClientProtocolException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-			
-		}
-	public void deleteInterest() throws JSONException, ClientProtocolException, IOException{
-		HttpClient client = new DefaultHttpClient();  
-	    HttpDelete del = new HttpDelete("http://10.0.2.2:8000/api/v1/createinterest/"+UserProfile.interestpoint+"/");
-	    del.setHeader("Content-type", "application/json");
-	    del.setHeader("Accept", "application/json");
-	   
-	    try {
-			HttpResponse response = client.execute(del);
+			HttpResponse response = client.execute(post);
 		} catch (ClientProtocolException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -142,3 +103,4 @@ public class EditInterest extends Activity implements OnClickListener,OnItemSele
 			
 		}
 }
+	

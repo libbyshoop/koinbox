@@ -73,7 +73,18 @@
         android:layout_marginBottom="5dp"/>
 	    
 	</TableRow>
+	<TableRow>
+        <TextView
+        android:text="[Add Interest]"
+        android:id="@+id/add_interest"
+        android:layout_marginBottom="15dp"
+        android:onClick="onClick"                
+        android:clickable="true"
+        />
+	    
+	</TableRow>
 </TableLayout>
+
 
 
 </ScrollView>

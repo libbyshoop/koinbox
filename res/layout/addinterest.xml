@@ -1,0 +1,49 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <TableRow>
+        <TextView
+        android:text="Add Your Interest" 
+        />
+	</TableRow>
+	
+    <TableRow>
+        <TextView
+        android:text="Type" 
+        />
+        
+        <Spinner android:id="@+id/add_type_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="true"/>
+	</TableRow>
+	
+    <TableRow>
+        <TextView
+        android:text="Description" 
+        />
+        
+        <EditText
+	        android:id="@+id/add_interest"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:inputType="text" />
+	</TableRow>
+	
+	<Button
+        android:id="@+id/submit_add_interest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save" />
+
+    
+</TableLayout>
+
+
+</ScrollView>
