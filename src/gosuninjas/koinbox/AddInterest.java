@@ -77,7 +77,7 @@ public class AddInterest extends Activity implements OnClickListener,OnItemSelec
 	
 	public void addInterest(String type, String description) throws JSONException, ClientProtocolException, IOException{
 		HttpClient client = new DefaultHttpClient();  
-	    HttpPost post = new HttpPost("http://10.0.2.2:8000/api/v1/createinterest/");
+	    HttpPost post = new HttpPost("http://myapp-gosuninjas.dotcloud.com/api/v1/createinterest/");
 	    post.setHeader("Content-type", "application/json");
 	    post.setHeader("Accept", "application/json");
 	    JSONObject obj = new JSONObject();

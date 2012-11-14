@@ -49,8 +49,8 @@ public class UserProfile extends Activity implements OnClickListener{
 	public static int myage;
 
 	
-	final static String URL_pre = "http://10.0.2.2:8000/api/v1/userprofile/?format=json";
-	final static String URL_pre1 = "http://10.0.2.2:8000/api/v1/interest/?format=json";
+	final static String URL_pre = "http://myapp-gosuninjas.dotcloud.com/api/v1/userprofile/?format=json";
+	final static String URL_pre1 = "http://myapp-gosuninjas.dotcloud.com/api/v1/interest/?format=json";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

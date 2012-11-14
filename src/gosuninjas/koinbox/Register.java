@@ -99,7 +99,7 @@ public class Register extends Activity implements OnClickListener {
 	
 	public void registerUser(String username, String password, String email) throws JSONException{
 		HttpClient client = new DefaultHttpClient();  
-	    HttpPost post = new HttpPost("http://10.0.2.2:8000/api/v1/newuser/");
+	    HttpPost post = new HttpPost("http://myapp-gosuninjas.dotcloud.com/api/v1/newuser/");
 	    post.setHeader("Content-type", "application/json");
 	    post.setHeader("Accept", "application/json");
 	    JSONObject obj = new JSONObject();
@@ -126,7 +126,7 @@ public class Register extends Activity implements OnClickListener {
 	
 	public void createProfile(String username, String name, String age, String university, String home, String away) throws JSONException, ClientProtocolException, IOException{
 		HttpClient client = new DefaultHttpClient();  
-		HttpGet get = new HttpGet("http://10.0.2.2:8000/api/v1/user/?format=json&username="+username);
+		HttpGet get = new HttpGet("http://myapp-gosuninjas.dotcloud.com/api/v1/user/?format=json&username="+username);
 		HttpResponse r = client.execute(get);
 		
 		HttpEntity e = r.getEntity();
@@ -135,7 +135,7 @@ public class Register extends Activity implements OnClickListener {
 		JSONArray user_stream = input.getJSONArray("objects");
 		JSONObject user = user_stream.getJSONObject(0);
 		String userid = user.getString("resource_uri");
-	    HttpPost post = new HttpPost("http://10.0.2.2:8000/api/v1/createprofile/");
+	    HttpPost post = new HttpPost("http://myapp-gosuninjas.dotcloud.com/api/v1/createprofile/");
 	    post.setHeader("Content-type", "application/json");
 	    post.setHeader("Accept", "application/json");
 	    JSONObject obj = new JSONObject();

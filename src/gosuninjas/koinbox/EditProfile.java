@@ -74,7 +74,7 @@ public class EditProfile extends Activity implements OnClickListener{
 	 
 	 public void editProfile(String name, int age, String university, String home, String away) throws JSONException, ClientProtocolException, IOException{
 		HttpClient client = new DefaultHttpClient();  
-	    HttpPut put = new HttpPut("http://10.0.2.2:8000/api/v1/createprofile/"+UserProfile.myuri.substring(20));
+	    HttpPut put = new HttpPut("http://myapp-gosuninjas.dotcloud.com/api/v1/createprofile/"+UserProfile.myuri.substring(20));
 	    put.setHeader("Content-type", "application/json");
 	    put.setHeader("Accept", "application/json");
 	    JSONObject obj = new JSONObject();

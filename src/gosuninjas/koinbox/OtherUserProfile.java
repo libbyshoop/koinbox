@@ -53,8 +53,8 @@ public class OtherUserProfile extends Activity{
 	public static String other_username;
 	public static String userid;
 	
-	final static String URL_pre = "http://10.0.2.2:8000/api/v1/otheruserprofile/?format=json&user=";
-	final static String URL_pre1 = "http://10.0.2.2:8000/api/v1/otheruserinterest/?format=json&user=";
+	final static String URL_pre = "http://myapp-gosuninjas.dotcloud.com/api/v1/otheruserprofile/?format=json&user=";
+	final static String URL_pre1 = "http://myapp-gosuninjas.dotcloud.com/api/v1/otheruserinterest/?format=json&user=";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,7 @@ public class OtherUserProfile extends Activity{
 	
 	
 	public void addFriend() throws ClientProtocolException, IOException{
-		final HttpPost httppost = new HttpPost("http://10.0.2.2:8000/login_page/"); 
+		final HttpPost httppost = new HttpPost("http://myapp-gosuninjas.dotcloud.com/login_page/"); 
 
 	    ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	    postParameters.add(new BasicNameValuePair("username", Koinbox.username));
@@ -124,13 +124,13 @@ public class OtherUserProfile extends Activity{
 	    httppost.setEntity(new UrlEncodedFormEntity(postParameters));
 	    HttpResponse response = client.execute(httppost);
 	    
-	    HttpGet get1 = new HttpGet("http://10.0.2.2:8000/friend/add/?username="+other_username);
+	    HttpGet get1 = new HttpGet("http://myapp-gosuninjas.dotcloud.com/friend/add/?username="+other_username);
         HttpResponse r1 = client.execute(get1);
         
 	}
 	
 	public void deleteFriend() throws ClientProtocolException, IOException{
-		final HttpPost httppost = new HttpPost("http://10.0.2.2:8000/login_page/"); 
+		final HttpPost httppost = new HttpPost("http://myapp-gosuninjas.dotcloud.com/login_page/"); 
 
 	    ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	    postParameters.add(new BasicNameValuePair("username", Koinbox.username));
@@ -138,13 +138,13 @@ public class OtherUserProfile extends Activity{
 	    httppost.setEntity(new UrlEncodedFormEntity(postParameters));
 	    HttpResponse response = client.execute(httppost);
 	    
-	    HttpGet get = new HttpGet("http://10.0.2.2:8000/friend/delete/?username="+other_username);
+	    HttpGet get = new HttpGet("http://myapp-gosuninjas.dotcloud.com/friend/delete/?username="+other_username);
         HttpResponse r1 = client.execute(get);
         
 	}
 	
 	public JSONObject otheruserprofile(String username) throws ClientProtocolException, IOException, JSONException{
-		HttpGet get1 = new HttpGet("http://10.0.2.2:8000/api/v1/user/?format=json&username="+username);
+		HttpGet get1 = new HttpGet("http://myapp-gosuninjas.dotcloud.com/api/v1/user/?format=json&username="+username);
 		HttpResponse r1 = client.execute(get1);
 		HttpEntity e1 = r1.getEntity();
 		String data1 = EntityUtils.toString(e1);

@@ -99,7 +99,7 @@ public class EditInterest extends Activity implements OnClickListener,OnItemSele
 	
 	public void editInterest(String type, String description) throws JSONException, ClientProtocolException, IOException{
 		HttpClient client = new DefaultHttpClient();  
-	    HttpPut put = new HttpPut("http://10.0.2.2:8000/api/v1/createinterest/"+UserProfile.interestpoint+"/");
+	    HttpPut put = new HttpPut("http://myapp-gosuninjas.dotcloud.com/api/v1/createinterest/"+UserProfile.interestpoint+"/");
 	    put.setHeader("Content-type", "application/json");
 	    put.setHeader("Accept", "application/json");
 	    JSONObject obj = new JSONObject();
@@ -126,7 +126,7 @@ public class EditInterest extends Activity implements OnClickListener,OnItemSele
 		}
 	public void deleteInterest() throws JSONException, ClientProtocolException, IOException{
 		HttpClient client = new DefaultHttpClient();  
-	    HttpDelete del = new HttpDelete("http://10.0.2.2:8000/api/v1/createinterest/"+UserProfile.interestpoint+"/");
+	    HttpDelete del = new HttpDelete("http://myapp-gosuninjas.dotcloud.com/api/v1/createinterest/"+UserProfile.interestpoint+"/");
 	    del.setHeader("Content-type", "application/json");
 	    del.setHeader("Accept", "application/json");
 	   

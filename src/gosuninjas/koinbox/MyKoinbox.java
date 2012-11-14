@@ -50,16 +50,16 @@ public class MyKoinbox extends Activity {
         
 	 }
 	 public JSONArray mykoinbox(String username) throws ClientProtocolException, IOException, JSONException{
-		    final HttpPost httppost = new HttpPost("http://10.0.2.2:8000/login_page/"); 
+		    final HttpPost httppost = new HttpPost("http://myapp-gosuninjas.dotcloud.com/login_page/"); 
 
 		    ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		    postParameters.add(new BasicNameValuePair("username", Koinbox.username));
 		    postParameters.add(new BasicNameValuePair("password", Koinbox.password));
 		    httppost.setEntity(new UrlEncodedFormEntity(postParameters));
 		    HttpResponse response = client.execute(httppost);
-            HttpGet get1 = new HttpGet("http://10.0.2.2:8000/koinbox/");
+            HttpGet get1 = new HttpGet("http://myapp-gosuninjas.dotcloud.com/koinbox/");
             HttpResponse r1 = client.execute(get1);
-			HttpGet get = new HttpGet("http://10.0.2.2:8000/api/v1/mykoinbox/?format=json&username="+username);
+			HttpGet get = new HttpGet("http://myapp-gosuninjas.dotcloud.com/api/v1/mykoinbox/?format=json&username="+username);
 			HttpResponse r = client.execute(get);
 			
 			

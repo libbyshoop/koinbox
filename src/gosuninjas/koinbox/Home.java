@@ -84,7 +84,7 @@ public class Home extends Activity implements OnClickListener {
 		
 	}
 	public void friendlist() throws ClientProtocolException, IOException, JSONException{
-		HttpGet get = new HttpGet("http://10.0.2.2:8000/api/v1/friend/?format=json&username="+Koinbox.username);
+		HttpGet get = new HttpGet("http://myapp-gosuninjas.dotcloud.com/api/v1/friend/?format=json&username="+Koinbox.username);
 		HttpResponse r = client.execute(get);
 		HttpEntity e = r.getEntity();
 		String data = EntityUtils.toString(e);
