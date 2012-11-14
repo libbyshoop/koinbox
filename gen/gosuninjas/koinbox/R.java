@@ -35,6 +35,9 @@ public final class R {
         public static final int home_input=0x7f070028;
         public static final int log_out=0x7f070011;
         public static final int login=0x7f070016;
+        public static final int menu_back=0x7f070035;
+        public static final int menu_home=0x7f070034;
+        public static final int menu_logout=0x7f070036;
         public static final int menu_settings=0x7f070033;
         public static final int my_friends=0x7f07000f;
         public static final int my_koinbox=0x7f07000e;
@@ -83,6 +86,7 @@ public final class R {
     }
     public static final class menu {
         public static final int main=0x7f060000;
+        public static final int menu=0x7f060001;
     }
     public static final class string {
         public static final int age_text=0x7f040004;

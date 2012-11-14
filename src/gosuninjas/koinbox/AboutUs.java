@@ -3,7 +3,7 @@ package gosuninjas.koinbox;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class AboutUs extends Activity {
+public class AboutUs extends Menu {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);

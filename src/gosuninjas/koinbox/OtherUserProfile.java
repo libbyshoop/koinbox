@@ -44,7 +44,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class OtherUserProfile extends Activity{
+public class OtherUserProfile extends Menu{
 	
 	TextView name,age,university,home,away;
 	HttpClient client;

@@ -44,10 +44,4 @@ public class Koinbox extends Activity implements OnClickListener {
     		break;
     }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 }

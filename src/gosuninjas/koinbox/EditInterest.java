@@ -25,7 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class EditInterest extends Activity implements OnClickListener,OnItemSelectedListener {
+public class EditInterest extends Menu implements OnClickListener,OnItemSelectedListener {
 	Button save,delete_button;
 	EditText editdescription;
 	String[] items = {"Music","Sports","Movie","Game"};
@@ -60,6 +60,22 @@ public class EditInterest extends Activity implements OnClickListener,OnItemSele
 	
 	public void onClick(View v){
 		switch (v.getId()){
+		case R.id.delete_interest:
+			try {
+				deleteInterest();
+			} catch (ClientProtocolException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Intent i = new Intent(this, UserProfile.class);
+			startActivity(i);
+			break;
 		case R.id.submit_edit_interest:
 			
 			description=editdescription.getText().toString();
@@ -75,25 +91,11 @@ public class EditInterest extends Activity implements OnClickListener,OnItemSele
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Intent i = new Intent(this, UserProfile.class);
-			startActivity(i);
-			break;
-		case R.id.delete_interest:
-			try {
-				deleteInterest();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			i = new Intent(this, UserProfile.class);
 			startActivity(i);
 			break;
+			
+		
 		}
 	}
 	
@@ -106,7 +108,6 @@ public class EditInterest extends Activity implements OnClickListener,OnItemSele
 	    obj.put("type_interest", type);
 	    obj.put("description", description);
 	    obj.put("user", UserProfile.myuserid);
-	   
 	    try {
 			put.setEntity(new StringEntity(obj.toString(), "UTF-8"));
 		} catch (UnsupportedEncodingException e1) {
@@ -128,8 +129,7 @@ public class EditInterest extends Activity implements OnClickListener,OnItemSele
 		HttpClient client = new DefaultHttpClient();  
 	    HttpDelete del = new HttpDelete("http://myapp-gosuninjas.dotcloud.com/api/v1/createinterest/"+UserProfile.interestpoint+"/");
 	    del.setHeader("Content-type", "application/json");
-	    del.setHeader("Accept", "application/json");
-	   
+	    del.setHeader("Content-Length", "0");
 	    try {
 			HttpResponse response = client.execute(del);
 		} catch (ClientProtocolException e1) {

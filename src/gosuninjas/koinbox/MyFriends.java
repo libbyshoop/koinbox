@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-public class MyFriends extends Activity {
+public class MyFriends extends Menu {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);

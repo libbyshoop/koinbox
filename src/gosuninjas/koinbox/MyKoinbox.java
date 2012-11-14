@@ -38,7 +38,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MyKoinbox extends Activity {
+public class MyKoinbox extends Menu {
 	 HttpClient client;
 	 JSONArray jsonarray;
 	 

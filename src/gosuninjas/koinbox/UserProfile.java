@@ -38,7 +38,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UserProfile extends Activity implements OnClickListener{
+public class UserProfile extends Menu implements OnClickListener{
 	
 	TextView name,age,university,home,away;
 	Button myinterest,mykoinbox,logout;

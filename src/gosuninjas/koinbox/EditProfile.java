@@ -25,7 +25,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class EditProfile extends Activity implements OnClickListener{
+public class EditProfile extends Menu implements OnClickListener{
 	 Button save_profile;
 	 EditText editname,editage,edituniversity,edithome,editaway;
 	 @Override

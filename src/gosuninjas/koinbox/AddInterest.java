@@ -25,7 +25,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class AddInterest extends Activity implements OnClickListener,OnItemSelectedListener {
+public class AddInterest extends Menu implements OnClickListener,OnItemSelectedListener {
 	Button save;
 	EditText editdescription;
 	String[] items = {"Music","Sports","Movie","Game"};
