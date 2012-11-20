@@ -68,29 +68,43 @@ public class Register extends Activity implements OnClickListener {
     		home = home_box.getText().toString();
     		away = away_box.getText().toString();
     		try {
-				registerUser(username,password,email);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		
-    		try {
-				createProfile(username, name, age, university, home, away);
+				if (!username.equals("") && !email.equals("") && !password.equals("") &&!name.equals("") &&!age.equals("") && !university.equals("") &&
+						!home.equals("") && !away.equals("") && !Koinbox.checkuser(username)){
+				try {
+					registerUser(username,password,email);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				try {
+					createProfile(username, name, age, university, home, away);
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Koinbox.password = password;
+				Koinbox.username = username;
+				
+				i =new Intent(this, Home.class);
+				startActivity(i);
+				}
 			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-    		Koinbox.password = password;
-    		Koinbox.username = username;
-    		
-    		i =new Intent(this, Home.class);
-    		startActivity(i);
 			break;
     	}
 		
